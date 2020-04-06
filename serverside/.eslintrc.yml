@@ -1,0 +1,17 @@
+env:
+  es6: true
+  node: true
+parser: '@typescript-eslint/parser'
+parserOptions:
+  project: ./tsconfig.json
+plugins:
+  - import
+extends:
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:import/typescript
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+  import/order:
+    - warn
