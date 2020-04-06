@@ -10,6 +10,14 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
+message("Entering subdirectory 3rdparty/poco")
+add_definitions(-DENABLE_DATA=OFF
+        -DENABLE_DATA_ODBC=OFF
+        -DENABLE_MONGODB=OFF
+        -DENABLE_REDIS=OFF)
+add_subdirectory(3rdparty/poco)
+message("Leaving subdirectory 3rdparty/poco")
+
 add_library( # Sets the name of the library.
              native-lib
 
