@@ -1,24 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState, useRef } from 'react';
+import 'echarts';
+import 'echarts-gl';
+import ReactEcharts from "echarts-for-react";
 import './App.css';
 
+
 function App() {
+  const [data, setData] = useState([[0, 0, 0]])
+  const option = {
+    grid3D: {},
+    xAxis3D: {
+      min: -50,
+      max: 50,
+    },
+    yAxis3D: {
+      min: -50,
+      max: 50,
+    },
+    zAxis3D: {
+      min: -50,
+      max: 50,
+    },
+    series: [{
+      type: 'scatter3D',
+      data: data,
+      animation: false
+    }]
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (data.length > 10) {
+        data.shift()
+      }
+      setData([...data, [Math.random() * 25, Math.random() * 25, Math.random() * 25]])
+    }, 1000)
+
+    return(() => {clearInterval(intervalId)})
+  })
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ReactEcharts
+        option={option}
+        style={{ height: '100vh', width: "100vw" }}
+      />
     </div>
   );
 }
